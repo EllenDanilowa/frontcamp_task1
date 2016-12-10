@@ -3,5 +3,8 @@
 	"apiKeyParamName": "apiKey",
 	"errorMessages": {
 		"notExistApiKey": "Missing api key in URL"
+	},
+	"id": {
+		"loadButton": "load"
 	}
 }

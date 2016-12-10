@@ -3,8 +3,10 @@ const config = require('../configs/config.json');
 class ArticleController {
 
     initialize() {
-        document.getElementById('load').addEventListener('click', () => {
-            document.getElementById('load').classList.add('hidden');
+        const loadButton = document.getElementById(config.id.loadButton);
+        
+        loadButton.addEventListener('click', () => {
+            loadButton.classList.add('hidden');
                 require.ensure([], (require) => {  
                     const RenderManager = require('../views/RenderManager');
                     const renderManager = new RenderManager(); 
@@ -20,7 +22,14 @@ class ArticleController {
         if (apiKey) {
             require('../../styles/article.scss');
 
-            this.getArticles(apiKey, renderManager);
+            const ArticleProvider = require('../services/ArticleProvider');
+            const articleProvider = new ArticleProvider(apiKey);
+
+            articleProvider.loadArticles().then(articles => {
+                this.renderArticleBlock(renderManager, articles);
+            }).catch(error => {
+                this.renderErrorBlock(renderManager, error);
+            });
 
         } else {
             const ErrorModel = require('../models/ErrorModel');
@@ -36,17 +45,6 @@ class ArticleController {
         const apiKey = apiKeyProvider.getApiKey();
 
         return apiKey;
-    };
-
-    getArticles(apiKey, renderManager) {
-        const ArticleProvider = require('../services/ArticleProvider');
-        const articleProvider = new ArticleProvider(apiKey);
-
-        articleProvider.loadArticles().then(articles => {
-            this.renderArticleBlock(renderManager, articles);
-        }).catch(error => {
-            this.renderErrorBlock(renderManager, error);
-        });
     };
 
     renderArticleBlock(renderManager, articles) {

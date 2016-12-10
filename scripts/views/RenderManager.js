@@ -2,7 +2,7 @@ const RenderArticle = require('./RenderArticle');
 const RenderError = require('./RenderError');
 
 let RenderManager = (function () {
-	let privateFunctions = new WeakMap();
+	let privateFunctions = new Map();
 
     function renderArticles(articles) {
 		const renderArticles = new RenderArticle(articles);

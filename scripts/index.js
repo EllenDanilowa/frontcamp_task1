@@ -1,22 +1,6 @@
-const App = require('./App');
+require('../styles/style.scss')
 
+const ArticleController = require('./controllers/ArticleController');
+const articleController =  new ArticleController();
 
-const appSingleton = (function () {
-    let instance;
- 
-    function createInstance() {
-        return new App();
-    }
- 
-    return {
-        getInstance: function () {
-            if (!instance) {
-                instance = createInstance();
-            }
-            return instance;
-        }
-    };
-})();
-
-const appInstance = appSingleton.getInstance();
-appInstance.app();
+articleController.initialize();

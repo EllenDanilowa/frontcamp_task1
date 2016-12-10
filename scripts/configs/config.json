@@ -1,0 +1,7 @@
+{
+	"apiLink": "https://newsapi.org/v1/articles?source=bbc-news",
+	"apiKeyParamName": "apiKey",
+	"errorMessages": {
+		"notExistApiKey": "Missing api key in URL"
+	}
+}
